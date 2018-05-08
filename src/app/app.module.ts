@@ -1,5 +1,6 @@
+import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CounterComponent } from './counter/counter.component';
@@ -13,6 +14,15 @@ import { CounterComponent } from './counter/counter.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [],
+  entryComponents: [CounterComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap() {
+    const counterElement = createCustomElement(CounterComponent, { injector: this.injector });
+    customElements.define('my-counter', counterElement);
+  }
+}
