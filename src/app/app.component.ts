@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<app-counter [counter]="10" (counterChange)="onCounterChange($event)"></app-counter>',
+  styles: []
 })
 export class AppComponent {
-  title = 'app';
+
+  onCounterChange(val) {
+    console.log(val);
+  }
 }
